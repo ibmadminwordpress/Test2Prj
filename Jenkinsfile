@@ -13,7 +13,7 @@ pipeline {
         NAME = 'Srinivasan'
       }
       steps {
-        sh 'ping -a drapp03.i21.com'
+        sh 'echo " Today Date is   `date` "'
       }
     }
     stage('Deploy') {
