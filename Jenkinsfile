@@ -26,6 +26,8 @@ pipeline {
         stage('End') {
             steps {
                 sh 'ls'
+                sh 'pwd'
+                sh 'hostname'
             }
         }
     }
