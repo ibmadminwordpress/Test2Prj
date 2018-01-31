@@ -1,30 +1,32 @@
 pipeline {
-  agent any
-  stages {
-    stage('Build') {
-      steps {
-        sh 'echo "WELCOME to Build Stage"'
-        echo 'Welcome to Print Message'
-      }
+    agent
+    {
+        node {
+                label 'master'
+                customWorkspace "${env.JobPath}"
+              }
     }
-    stage('Test') {
-      agent any
-      environment {
-        NAME = 'Srinivasan'
-      }
-      steps {
-        sh 'echo " Today Date is   `date` "'
-      }
+
+    stages 
+    {
+        stage('Start') {
+            steps {
+                sh 'ls'
+            }
+        }
+
+        stage ('Invoke_pipeline') {
+            steps {
+                build job: 'pipeline1', parameters: [
+                string(name: 'param1', value: "value1")
+                ]
+            }
+        }
+
+        stage('End') {
+            steps {
+                sh 'ls'
+            }
+        }
     }
-    stage('Deploy') {
-      steps {
-        sh '''echo " Deploy stage"
-echo $NAME'''
-      }
-    }
-  }
-  environment {
-    MYNAME = 'Srinivasan'
-    JOB = 'Engg.'
-  }
 }
